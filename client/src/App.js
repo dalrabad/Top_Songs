@@ -35,19 +35,19 @@ class App extends Component {
 
   
 
-  updateSong = (id, name, artist) => {
-    console.log('dunia')
+  updateSong = (id, title, artist) => {
+    const song = { title, artist }
 
-    axios.put(`/api/songs/${id}`)
-    .then(res => { let songs = this.state.songs.map( t=> {
-      if (t.id === id){
-        debugger 
-        return {...t, title: t.title, artist: t.artist}
-      }
+    axios.put(`/api/songs/${id}`, { song })
+      .then(res => { 
+        let songs = this.state.songs.map( s => {
+        if (s.id === id)
+          return res.data
+        return s
+      })
       this.setState({songs})
-    })
 
-    }) 
+      }) 
   
   }
   
